@@ -1,19 +1,21 @@
 package datamini;
 
+
+
 import weka.classifiers.Evaluation;
-import weka.classifiers.trees.J48;
+import weka.classifiers.lazy.IBk;
 import weka.core.Instances;
 
 import java.util.Random;
 
-public class J48Classifier {
+public class IBkClassifier {
     public static double run(Instances data) throws Exception {
-        J48 tree = new J48();
-        tree.buildClassifier(data);
+        IBk ibk = new IBk();
+        ibk.buildClassifier(data);
         Evaluation eval = new Evaluation(data);
-        eval.crossValidateModel(tree, data, 10, new Random(1));
-        
-        System.out.println("=== J48 ===");
+        eval.crossValidateModel(ibk, data, 10, new Random(1));
+
+        System.out.println("=== IBk (k-NN) ===");
         System.out.println(eval.toSummaryString("\n=== Evaluation Results ===\n", false));
         System.out.println(eval.toClassDetailsString());
         System.out.println(eval.toMatrixString());
